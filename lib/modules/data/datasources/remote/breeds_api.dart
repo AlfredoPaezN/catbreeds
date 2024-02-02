@@ -11,4 +11,7 @@ abstract class BreedsApi {
 
   @GET('/breeds')
   Future<List<Breed>> getBreeds();
+
+  @GET('/images/search?breed_ids=beng')
+  Future<List<Breed>> getImageById();
 }

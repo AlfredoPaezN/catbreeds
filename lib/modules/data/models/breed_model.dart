@@ -9,6 +9,7 @@ class Breed extends Equatable {
   final String id;
   final String name;
   final String? cfaUrl;
+  final String? imageUrl;
   final String? vetstreetUrl;
   final String? vcahospitalsUrl;
   final String temperament;
@@ -50,6 +51,7 @@ class Breed extends Equatable {
     required this.id,
     required this.name,
     this.cfaUrl,
+    this.imageUrl,
     this.vetstreetUrl,
     this.vcahospitalsUrl,
     required this.temperament,
@@ -92,6 +94,7 @@ class Breed extends Equatable {
     String? id,
     String? name,
     String? cfaUrl,
+    String? imageUrl,
     String? vetstreetUrl,
     String? vcahospitalsUrl,
     String? temperament,
@@ -133,6 +136,7 @@ class Breed extends Equatable {
         id: id ?? this.id,
         name: name ?? this.name,
         cfaUrl: cfaUrl ?? this.cfaUrl,
+        imageUrl: imageUrl ?? this.imageUrl,
         vetstreetUrl: vetstreetUrl ?? this.vetstreetUrl,
         vcahospitalsUrl: vcahospitalsUrl ?? this.vcahospitalsUrl,
         temperament: temperament ?? this.temperament,
@@ -179,6 +183,7 @@ class Breed extends Equatable {
         id,
         name,
         cfaUrl,
+        imageUrl,
         vetstreetUrl,
         vcahospitalsUrl,
         temperament,

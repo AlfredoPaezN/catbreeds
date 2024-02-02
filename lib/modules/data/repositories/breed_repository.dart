@@ -21,4 +21,14 @@ class BreedRepositoryImpl implements BreedRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, List<Breed>>> getImageById() async {
+    try {
+      final response = await breedsApi.getImageById();
+      return Right(response);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

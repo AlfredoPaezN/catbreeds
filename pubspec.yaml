@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^8.1.3
   flutter_localizations:
     sdk: flutter
+  flutter_screenutil: ^5.9.0
   get_it: ^7.6.7
   go_router: ^13.1.0
   intl: ^0.18.0
@@ -25,6 +26,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.1.4
   build_runner: ^2.4.8
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
   json_serializable: ^6.7.1
@@ -32,6 +34,16 @@ dev_dependencies:
   retrofit_generator: ^8.0.6
   very_good_analysis: ^5.1.0
 
+  
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  remove_alpha_ios: true
+  image_path_android: "assets/icon/iconcat.png"
+  image_path_ios: "assets/icon/iconcatbgw.png"
+
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/icon/

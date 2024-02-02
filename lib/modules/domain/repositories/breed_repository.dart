@@ -4,4 +4,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class BreedRepository {
   Future<Either<Failure, List<Breed>>> getBreeds();
+  Future<Either<Failure, List<Breed>>> getImageById();
 }
