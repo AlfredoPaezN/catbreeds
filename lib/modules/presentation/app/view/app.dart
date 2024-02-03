@@ -1,10 +1,13 @@
 import 'package:catbreeds/injection_container.dart';
 import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:catbreeds/modules/presentation/blocs/breed_cubit/breed_cubit.dart';
+import 'package:catbreeds/routes/routes.dart';
+import 'package:catbreeds/routes/routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:catbreeds/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -17,7 +20,7 @@ class App extends StatelessWidget {
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
-        child: MaterialApp(
+        child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             appBarTheme: AppBarTheme(),
@@ -26,24 +29,28 @@ class App extends StatelessWidget {
               surfaceTintColor: Colors.white,
             ),
           ),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          // home: TestingCubit(),
-          home: BreedDetail(),
+          routerConfig: AppRouter.returnRouter(),
+          // localizationsDelegates: AppLocalizations.localizationsDelegates,
+          // supportedLocales: AppLocalizations.supportedLocales,
+
+          // routeInformationParser:
+          //     AppRouter.returnRouter().routeInformationParser,
+          // routerDelegate: AppRouter.returnRouter().routerDelegate,
+          // home: BreedDetail(),
         ),
       ),
     );
   }
 }
 
-class TestingCubit extends StatefulWidget {
-  const TestingCubit({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<TestingCubit> createState() => _TestingCubitState();
+  State<Home> createState() => _HomeState();
 }
 
-class _TestingCubitState extends State<TestingCubit> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +104,9 @@ class _TestingCubitState extends State<TestingCubit> {
                             aspectRatio: 0.7,
                             itemCount: state.breeds.length,
                             itemBuilder: (BuildContext, i) => GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    context.go(Routes.detail);
+                                  },
                                   child: BreedCard(
                                     breed: state.breeds[i],
                                   ),
@@ -119,7 +128,7 @@ class BreedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Colors.white,
+        color: Color(CatBreedsColors.secondary),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
