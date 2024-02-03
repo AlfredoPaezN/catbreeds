@@ -28,7 +28,8 @@ class App extends StatelessWidget {
           ),
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: TestingCubit(),
+          // home: TestingCubit(),
+          home: BreedDetail(),
         ),
       ),
     );
@@ -46,7 +47,7 @@ class _TestingCubitState extends State<TestingCubit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(CatBreedsColors.secondary),
+      backgroundColor: Color(CatBreedsColors.backgroundColor),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
@@ -63,6 +64,7 @@ class _TestingCubitState extends State<TestingCubit> {
             await breedCubit.getBreeds();
           },
           icon: Icon(Icons.abc)),
+      // body: BreedDetail(),
       body: BlocBuilder<BreedCubit, BreedState>(
         builder: (context, state) {
           return state.breeds.isEmpty
@@ -209,6 +211,7 @@ class CatBreedsColors {
 
   static const int primary = 0xFF6068A6;
   static const int secondary = 0xFFF7EFFB;
+  static const int backgroundColor = 0xFFD9D5EA;
 }
 
 class CustomSearchBar extends StatelessWidget implements PreferredSizeWidget {
@@ -312,120 +315,174 @@ class _BreedDetailState extends State<BreedDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverPersistentHeader(
-            delegate: _PersistenHeader(),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              _detailList(context),
-            ),
-          ),
-        ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+        title: Text('BREED DETAIL',
+            style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Color(CatBreedsColors.primary))),
       ),
+      backgroundColor: Color(CatBreedsColors.backgroundColor),
+      body: Column(children: [
+        Expanded(
+          flex: 3,
+          child: _DetailHeader(),
+        ),
+        Expanded(
+            flex: 4,
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 30.h),
+              physics: BouncingScrollPhysics(),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InfoCard(
+                      description: Text(
+                        "Asset type",
+                      ),
+                      data: Text(
+                        "Breed",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                    InfoCard(
+                      description: Text(
+                        "Country Code",
+                      ),
+                      data: Text(
+                        "Country",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InfoCard(
+                  description: Text(
+                    "Asset type",
+                  ),
+                  data: Text(
+                    "Description",
+                    style: BoldTextStyle(),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InfoCard(
+                      description: Text(
+                        "Asset type",
+                      ),
+                      data: Text(
+                        "Life Span",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                    InfoCard(
+                      description: Text(
+                        "Asset type",
+                      ),
+                      data: Text(
+                        "intelligence",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InfoCard(
+                  description: Text(
+                    "Asset type",
+                  ),
+                  data: Text(
+                    "Temperament",
+                    style: BoldTextStyle(),
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InfoCard(
+                      description: Text(
+                        "Asset type",
+                      ),
+                      data: Text(
+                        "Weight",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                    InfoCard(
+                      description: Text(
+                        "Energy level",
+                      ),
+                      data: Text(
+                        "Energy level",
+                        style: BoldTextStyle(),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+              ],
+            )),
+      ]),
+    );
+  }
+
+  TextStyle BoldTextStyle() {
+    return TextStyle(
+      color: Color(CatBreedsColors.primary),
+      fontWeight: FontWeight.bold,
+      fontSize: 13.sp,
     );
   }
 }
 
-List<Widget> _detailList(BuildContext context) {
-  ThemeData appTheme = Theme.of(context);
-  return [
-    InfoCard(
-      description: Text(
-        "Driver name",
-        style: appTheme.textTheme.bodyLarge,
-      ),
-      data: Text(
-        "No driver",
-        style: appTheme.textTheme.labelLarge,
-      ),
-    ),
-    InfoCard(
-      description: Text(
-        "Asset type",
-        style: appTheme.textTheme.bodyLarge,
-      ),
-      data: Text(
-        "",
-        style: appTheme.textTheme.labelLarge,
-      ),
-    ),
-    InfoCard(
-      description: Text(
-        "Asset group",
-        style: appTheme.textTheme.bodyLarge,
-      ),
-      data: Text(
-        "",
-        style: appTheme.textTheme.labelLarge,
-      ),
-    ),
-    InfoCard(
-      description: Text(
-        "Address",
-        style: appTheme.textTheme.bodyLarge,
-      ),
-      data: Text(
-        "controller.address",
-        textAlign: TextAlign.right,
-        maxLines: 4,
-        style: appTheme.textTheme.labelLarge,
-      ),
-    ),
-  ];
-}
+class _DetailHeader extends StatelessWidget {
+  const _DetailHeader({
+    super.key,
+  });
 
-class _PersistenHeader extends SliverPersistentHeaderDelegate {
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      padding: EdgeInsets.fromLTRB(0, 16.h, 0, 16.h),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            spreadRadius: 1,
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Center(
-          child: SizedBox(
-            width: 1.sw / 2,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Hero(
-                tag: "HeroID",
-                child: CircleAvatar(
-                  radius: 100,
-                  backgroundImage: Image.memory(
-                    Uri.parse("URL").data!.contentAsBytes(),
-                  ).image,
-                  backgroundColor: Colors.white,
-                ),
-              ),
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(15.h),
+      child: Center(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: Hero(
+            tag: "HeroID",
+            child: CircleAvatar(
+              radius: 100,
+              backgroundImage: Image.network(
+                "https://cdn2.thecatapi.com/images/dN6eoeLjY.jpg",
+                fit: BoxFit.cover,
+              ).image,
+              // backgroundImage: Image.memory(
+              //   Uri.parse("URL").data!.contentAsBytes(),
+              // ).image,
+              backgroundColor: Colors.white,
             ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  double get maxExtent => 1000;
-
-  @override
-  double get minExtent => 200;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }
 
@@ -449,13 +506,13 @@ class InfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: Container(
-      height: height,
+    return Container(
+      // height: 100,
+      width: 130.w,
       padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: Color(CatBreedsColors.secondary).withOpacity(.4),
+        borderRadius: BorderRadius.circular(15),
+        color: Color(CatBreedsColors.secondary),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -465,6 +522,6 @@ class InfoCard extends StatelessWidget {
           description,
         ],
       ),
-    ));
+    );
   }
 }
