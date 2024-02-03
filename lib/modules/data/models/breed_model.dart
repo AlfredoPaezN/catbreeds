@@ -1,3 +1,4 @@
+import 'package:catbreeds/modules/data/models/breed_image_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,11 +6,57 @@ part 'breed_model.g.dart';
 
 @JsonSerializable()
 class Breed extends Equatable {
+  const Breed({
+    required this.weight,
+    required this.id,
+    required this.name,
+    required this.temperament,
+    required this.origin,
+    required this.adaptability,
+    required this.hypoallergenic,
+    this.cfaUrl,
+    this.image,
+    this.vetstreetUrl,
+    this.vcahospitalsUrl,
+    this.countryCodes,
+    this.countryCode,
+    this.description,
+    this.lifeSpan,
+    this.indoor,
+    this.lap,
+    this.altNames,
+    this.affectionLevel,
+    this.childFriendly,
+    this.dogFriendly,
+    this.energyLevel,
+    this.grooming,
+    this.healthIssues,
+    this.intelligence,
+    this.sheddingLevel,
+    this.socialNeeds,
+    this.strangerFriendly,
+    this.vocalisation,
+    this.experimental,
+    this.hairless,
+    this.natural,
+    this.rare,
+    this.rex,
+    this.suppressedTail,
+    this.shortLegs,
+    this.wikipediaUrl,
+    this.referenceImageId,
+    this.catFriendly,
+    this.bidability,
+  });
+
+  factory Breed.fromJson(Map<String, dynamic> json) => _$BreedFromJson(json);
+  Map<String, dynamic> toJson() => _$BreedToJson(this);
+
   final Weight weight;
   final String id;
   final String name;
   final String? cfaUrl;
-  final String? imageUrl;
+  final BreedImage? image;
   final String? vetstreetUrl;
   final String? vcahospitalsUrl;
   final String temperament;
@@ -46,55 +93,12 @@ class Breed extends Equatable {
   final int? catFriendly;
   final int? bidability;
 
-  Breed({
-    required this.weight,
-    required this.id,
-    required this.name,
-    this.cfaUrl,
-    this.imageUrl,
-    this.vetstreetUrl,
-    this.vcahospitalsUrl,
-    required this.temperament,
-    required this.origin,
-    this.countryCodes,
-    this.countryCode,
-    this.description,
-    this.lifeSpan,
-    this.indoor,
-    this.lap,
-    this.altNames,
-    required this.adaptability,
-    this.affectionLevel,
-    this.childFriendly,
-    this.dogFriendly,
-    this.energyLevel,
-    this.grooming,
-    this.healthIssues,
-    this.intelligence,
-    this.sheddingLevel,
-    this.socialNeeds,
-    this.strangerFriendly,
-    this.vocalisation,
-    this.experimental,
-    this.hairless,
-    this.natural,
-    this.rare,
-    this.rex,
-    this.suppressedTail,
-    this.shortLegs,
-    this.wikipediaUrl,
-    required this.hypoallergenic,
-    this.referenceImageId,
-    this.catFriendly,
-    this.bidability,
-  });
-
   Breed copyWith({
     Weight? weight,
     String? id,
     String? name,
     String? cfaUrl,
-    String? imageUrl,
+    BreedImage? image,
     String? vetstreetUrl,
     String? vcahospitalsUrl,
     String? temperament,
@@ -136,7 +140,7 @@ class Breed extends Equatable {
         id: id ?? this.id,
         name: name ?? this.name,
         cfaUrl: cfaUrl ?? this.cfaUrl,
-        imageUrl: imageUrl ?? this.imageUrl,
+        image: image ?? this.image,
         vetstreetUrl: vetstreetUrl ?? this.vetstreetUrl,
         vcahospitalsUrl: vcahospitalsUrl ?? this.vcahospitalsUrl,
         temperament: temperament ?? this.temperament,
@@ -174,16 +178,13 @@ class Breed extends Equatable {
         bidability: bidability ?? this.bidability,
       );
 
-  factory Breed.fromJson(Map<String, dynamic> json) => _$BreedFromJson(json);
-  Map<String, dynamic> toJson() => _$BreedToJson(this);
-
   @override
   List<Object?> get props => [
         weight,
         id,
         name,
         cfaUrl,
-        imageUrl,
+        image,
         vetstreetUrl,
         vcahospitalsUrl,
         temperament,
@@ -224,15 +225,15 @@ class Breed extends Equatable {
 
 @JsonSerializable()
 class Weight extends Equatable {
-  final String imperial;
-  final String metric;
-
-  Weight({
+  const Weight({
     required this.imperial,
     required this.metric,
   });
 
   factory Weight.fromJson(Map<String, dynamic> json) => _$WeightFromJson(json);
+
+  final String imperial;
+  final String metric;
   Map<String, dynamic> toJson() => _$WeightToJson(this);
 
   Weight copyWith({

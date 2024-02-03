@@ -61,6 +61,7 @@ class _TestingCubitState extends State<TestingCubit> {
           onPressed: () async {
             final breedCubit = context.read<BreedCubit>();
             await breedCubit.getBreeds();
+            await breedCubit.getImagesByIds();
           },
           icon: Icon(Icons.abc)),
       body: BlocBuilder<BreedCubit, BreedState>(
@@ -132,10 +133,12 @@ class BreedCard extends StatelessWidget {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
-                  child: Image.network(
-                    "https://cdn2.thecatapi.com/images/dN6eoeLjY.jpg",
-                    fit: BoxFit.cover,
-                  ),
+                  child: breed.image?.url != null
+                      ? Image.network(
+                          breed.image!.url!,
+                          fit: BoxFit.cover,
+                        )
+                      : Container(),
                 ),
               ),
             ),
