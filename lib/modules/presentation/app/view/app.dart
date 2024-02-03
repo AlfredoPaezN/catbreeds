@@ -16,16 +16,16 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => locator<BreedCubit>()),
+        BlocProvider(create: (context) => locator<BreedCubit>()..getBreeds()),
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
         child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            appBarTheme: AppBarTheme(),
+            appBarTheme: const AppBarTheme(),
             useMaterial3: true,
-            cardTheme: CardTheme(
+            cardTheme: const CardTheme(
               surfaceTintColor: Colors.white,
             ),
           ),
@@ -54,67 +54,68 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(CatBreedsColors.backgroundColor),
+      backgroundColor: const Color(CatBreedsColors.backgroundColor),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        title: Text('Catbreeds',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(CatBreedsColors.primary))),
+        title: const Text(
+          'Catbreeds',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(CatBreedsColors.primary),
+          ),
+        ),
       ),
-      floatingActionButton: IconButton(
-          onPressed: () async {
-            final breedCubit = context.read<BreedCubit>();
-            await breedCubit.getBreeds();
-            await breedCubit.getImagesByIds();
-          },
-          icon: Icon(Icons.abc)),
       // body: BreedDetail(),
       body: BlocBuilder<BreedCubit, BreedState>(
         builder: (context, state) {
-          return state.breeds.isEmpty
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: [
-                    Padding(
+          return state.when<Widget>(
+            initial: (breeds) => const Text('Hi'),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            success: (breeds) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, top: 10.0, right: 10.0),
+                    child: SizedBox(
+                      height: 50.h,
+                      child: const CustomSearchBar(
+                        hintText: 'Search by Breed',
+                        leftPadding: 10,
+                        topPadding: 10,
+                        rightPadding: 10,
+                        bottomPadding: 10,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 10.0, top: 10.0, right: 10.0),
-                      child: SizedBox(
-                        height: 50.h,
-                        child: CustomSearchBar(
-                          hintText: 'Search by Breed',
-                          leftPadding: 10,
-                          topPadding: 10,
-                          rightPadding: 10,
-                          bottomPadding: 10,
-                        ),
-                      ),
+                          left: 20.0, top: 0, right: 20.0),
+                      child: StaggeredDualView(
+                          spacing: 10,
+                          aspectRatio: 0.7,
+                          itemCount: breeds.length,
+                          itemBuilder: (BuildContext, i) => GestureDetector(
+                                onTap: () {
+                                  context.go(Routes.detail);
+                                },
+                                child: BreedCard(
+                                  breed: breeds[i],
+                                ),
+                              )),
                     ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 20.0, top: 0, right: 20.0),
-                        child: StaggeredDualView(
-                            spacing: 10,
-                            aspectRatio: 0.7,
-                            itemCount: state.breeds.length,
-                            itemBuilder: (BuildContext, i) => GestureDetector(
-                                  onTap: () {
-                                    context.go(Routes.detail);
-                                  },
-                                  child: BreedCard(
-                                    breed: state.breeds[i],
-                                  ),
-                                )),
-                      ),
-                    ),
-                  ],
-                );
+                  ),
+                ],
+              );
+            },
+            error: Text.new,
+          );
         },
       ),
     );
@@ -128,7 +129,7 @@ class BreedCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Color(CatBreedsColors.secondary),
+        color: const Color(CatBreedsColors.secondary),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -140,7 +141,7 @@ class BreedCard extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
@@ -164,7 +165,7 @@ class BreedCard extends StatelessWidget {
                     Text(breed.name,
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: Color(CatBreedsColors.primary))),
@@ -173,7 +174,7 @@ class BreedCard extends StatelessWidget {
                       child: Text(breed.description!,
                           maxLines: 2,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w400,
                               color: Colors.black)),
@@ -272,7 +273,7 @@ class CustomSearchBar extends StatelessWidget implements PreferredSizeWidget {
         textAlign: TextAlign.start,
         style: TextStyle(
           fontSize: 14.sp,
-          color: Color(CatBreedsColors.primary).withOpacity(.1),
+          color: const Color(CatBreedsColors.primary).withOpacity(.1),
           overflow: TextOverflow.ellipsis,
         ),
         onChanged: onChanged,
@@ -282,19 +283,19 @@ class CustomSearchBar extends StatelessWidget implements PreferredSizeWidget {
         readOnly: readOnly,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Color(CatBreedsColors.primary).withOpacity(.2),
+          fillColor: const Color(CatBreedsColors.primary).withOpacity(.2),
           isDense: true,
           // contentPadding: EdgeInsets.all(16.r),
           hintText: hintText,
           hintStyle: TextStyle(
             fontSize: 13.sp,
-            color: Color(CatBreedsColors.primary),
+            color: const Color(CatBreedsColors.primary),
             overflow: TextOverflow.ellipsis,
           ),
           prefixIcon: prefixIcon ??
               SizedBox(
                 width: orientation == Orientation.portrait ? 32.w : 16.w,
-                child: Icon(
+                child: const Icon(
                   Icons.search,
                   size: 18,
                   color: Color(CatBreedsColors.primary),
@@ -331,15 +332,15 @@ class _BreedDetailState extends State<BreedDetail> {
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        title: Text('BREED DETAIL',
+        title: const Text('BREED DETAIL',
             style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Color(CatBreedsColors.primary))),
       ),
-      backgroundColor: Color(CatBreedsColors.backgroundColor),
+      backgroundColor: const Color(CatBreedsColors.backgroundColor),
       body: Column(children: [
-        Expanded(
+        const Expanded(
           flex: 3,
           child: _DetailHeader(),
         ),
@@ -347,13 +348,13 @@ class _BreedDetailState extends State<BreedDetail> {
             flex: 4,
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 30.h),
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Asset type",
                       ),
                       data: Text(
@@ -362,7 +363,7 @@ class _BreedDetailState extends State<BreedDetail> {
                       ),
                     ),
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Country Code",
                       ),
                       data: Text(
@@ -376,7 +377,7 @@ class _BreedDetailState extends State<BreedDetail> {
                   height: 20.h,
                 ),
                 InfoCard(
-                  description: Text(
+                  description: const Text(
                     "Asset type",
                   ),
                   data: Text(
@@ -391,7 +392,7 @@ class _BreedDetailState extends State<BreedDetail> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Asset type",
                       ),
                       data: Text(
@@ -400,7 +401,7 @@ class _BreedDetailState extends State<BreedDetail> {
                       ),
                     ),
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Asset type",
                       ),
                       data: Text(
@@ -414,7 +415,7 @@ class _BreedDetailState extends State<BreedDetail> {
                   height: 20.h,
                 ),
                 InfoCard(
-                  description: Text(
+                  description: const Text(
                     "Asset type",
                   ),
                   data: Text(
@@ -429,7 +430,7 @@ class _BreedDetailState extends State<BreedDetail> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Asset type",
                       ),
                       data: Text(
@@ -438,7 +439,7 @@ class _BreedDetailState extends State<BreedDetail> {
                       ),
                     ),
                     InfoCard(
-                      description: Text(
+                      description: const Text(
                         "Energy level",
                       ),
                       data: Text(
@@ -459,7 +460,7 @@ class _BreedDetailState extends State<BreedDetail> {
 
   TextStyle BoldTextStyle() {
     return TextStyle(
-      color: Color(CatBreedsColors.primary),
+      color: const Color(CatBreedsColors.primary),
       fontWeight: FontWeight.bold,
       fontSize: 13.sp,
     );
@@ -524,7 +525,7 @@ class InfoCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Color(CatBreedsColors.secondary),
+        color: const Color(CatBreedsColors.secondary),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

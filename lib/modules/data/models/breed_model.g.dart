@@ -6,14 +6,16 @@ part of 'breed_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Breed _$BreedFromJson(Map<String, dynamic> json) => Breed(
-      weight: Weight.fromJson(json['weight'] as Map<String, dynamic>),
+_$BreedImpl _$$BreedImplFromJson(Map<String, dynamic> json) => _$BreedImpl(
       id: json['id'] as String,
       name: json['name'] as String,
-      temperament: json['temperament'] as String,
       origin: json['origin'] as String,
+      temperament: json['temperament'] as String,
       adaptability: json['adaptability'] as int,
       hypoallergenic: json['hypoallergenic'] as int,
+      weight: json['weight'] == null
+          ? null
+          : Weight.fromJson(json['weight'] as Map<String, dynamic>),
       cfaUrl: json['cfaUrl'] as String?,
       image: json['image'] == null
           ? null
@@ -51,16 +53,19 @@ Breed _$BreedFromJson(Map<String, dynamic> json) => Breed(
       bidability: json['bidability'] as int?,
     );
 
-Map<String, dynamic> _$BreedToJson(Breed instance) => <String, dynamic>{
-      'weight': instance.weight,
+Map<String, dynamic> _$$BreedImplToJson(_$BreedImpl instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'origin': instance.origin,
+      'temperament': instance.temperament,
+      'adaptability': instance.adaptability,
+      'hypoallergenic': instance.hypoallergenic,
+      'weight': instance.weight,
       'cfaUrl': instance.cfaUrl,
       'image': instance.image,
       'vetstreetUrl': instance.vetstreetUrl,
       'vcahospitalsUrl': instance.vcahospitalsUrl,
-      'temperament': instance.temperament,
-      'origin': instance.origin,
       'countryCodes': instance.countryCodes,
       'countryCode': instance.countryCode,
       'description': instance.description,
@@ -68,7 +73,6 @@ Map<String, dynamic> _$BreedToJson(Breed instance) => <String, dynamic>{
       'indoor': instance.indoor,
       'lap': instance.lap,
       'altNames': instance.altNames,
-      'adaptability': instance.adaptability,
       'affectionLevel': instance.affectionLevel,
       'childFriendly': instance.childFriendly,
       'dogFriendly': instance.dogFriendly,
@@ -88,18 +92,18 @@ Map<String, dynamic> _$BreedToJson(Breed instance) => <String, dynamic>{
       'suppressedTail': instance.suppressedTail,
       'shortLegs': instance.shortLegs,
       'wikipediaUrl': instance.wikipediaUrl,
-      'hypoallergenic': instance.hypoallergenic,
       'referenceImageId': instance.referenceImageId,
       'catFriendly': instance.catFriendly,
       'bidability': instance.bidability,
     };
 
-Weight _$WeightFromJson(Map<String, dynamic> json) => Weight(
+_$WeightImpl _$$WeightImplFromJson(Map<String, dynamic> json) => _$WeightImpl(
       imperial: json['imperial'] as String,
       metric: json['metric'] as String,
     );
 
-Map<String, dynamic> _$WeightToJson(Weight instance) => <String, dynamic>{
+Map<String, dynamic> _$$WeightImplToJson(_$WeightImpl instance) =>
+    <String, dynamic>{
       'imperial': instance.imperial,
       'metric': instance.metric,
     };
