@@ -6,7 +6,8 @@ part of 'breed_image_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BreedImage _$BreedImageFromJson(Map<String, dynamic> json) => BreedImage(
+_$BreedImageImpl _$$BreedImageImplFromJson(Map<String, dynamic> json) =>
+    _$BreedImageImpl(
       id: json['id'] as String?,
       width: json['width'] as int?,
       height: json['height'] as int?,
@@ -16,7 +17,7 @@ BreedImage _$BreedImageFromJson(Map<String, dynamic> json) => BreedImage(
           .toList(),
     );
 
-Map<String, dynamic> _$BreedImageToJson(BreedImage instance) =>
+Map<String, dynamic> _$$BreedImageImplToJson(_$BreedImageImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'width': instance.width,
@@ -25,12 +26,14 @@ Map<String, dynamic> _$BreedImageToJson(BreedImage instance) =>
       'breedsInfo': instance.breedsInfo,
     };
 
-BreedInfo _$BreedInfoFromJson(Map<String, dynamic> json) => BreedInfo(
+_$BreedInfoImpl _$$BreedInfoImplFromJson(Map<String, dynamic> json) =>
+    _$BreedInfoImpl(
       json['id'] as String?,
       json['name'] as String?,
     );
 
-Map<String, dynamic> _$BreedInfoToJson(BreedInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$$BreedInfoImplToJson(_$BreedInfoImpl instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
     };

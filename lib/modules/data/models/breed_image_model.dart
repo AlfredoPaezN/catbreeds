@@ -1,58 +1,26 @@
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'breed_image_model.freezed.dart';
 part 'breed_image_model.g.dart';
 
-@JsonSerializable()
-class BreedImage extends Equatable {
-  const BreedImage({
-    this.id,
-    this.width,
-    this.height,
-    this.url,
-    this.breedsInfo,
-  });
-
-  factory BreedImage.fromJson(Map<String, dynamic> json) =>
-      _$BreedImageFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BreedImageToJson(this);
-
-  final String? id;
-  final int? width;
-  final int? height;
-  final String? url;
-  final List<BreedInfo>? breedsInfo;
-
-  BreedImage copyWith({
+@freezed
+class BreedImage with _$BreedImage {
+  const factory BreedImage({
     String? id,
     int? width,
     int? height,
     String? url,
-  }) =>
-      BreedImage(
-        id: id ?? this.id,
-        width: width ?? this.width,
-        height: height ?? this.height,
-        url: url ?? this.url,
-      );
+    List<BreedInfo>? breedsInfo,
+  }) = _BreedImage;
 
-  @override
-  List<Object?> get props => [id, width, height, url];
+  factory BreedImage.fromJson(Map<String, dynamic> json) =>
+      _$BreedImageFromJson(json);
 }
 
-@JsonSerializable()
-class BreedInfo extends Equatable {
-  const BreedInfo(this.id, this.name);
+@freezed
+class BreedInfo with _$BreedInfo {
+  const factory BreedInfo(String? id, String? name) = _BreedInfo;
 
   factory BreedInfo.fromJson(Map<String, dynamic> json) =>
       _$BreedInfoFromJson(json);
-
-  Map<String, dynamic> toJson() => _$BreedInfoToJson(this);
-
-  final String? id;
-  final String? name;
-
-  @override
-  List<Object?> get props => [id, name];
 }

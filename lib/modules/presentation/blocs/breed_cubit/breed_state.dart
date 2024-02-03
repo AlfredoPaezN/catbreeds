@@ -1,12 +1,9 @@
 part of 'breed_cubit.dart';
 
-class BreedState extends Equatable {
-  const BreedState({required this.breeds});
-
-  final List<Breed> breeds;
-
-  @override
-  List<Object> get props => [breeds];
+@freezed
+class BreedState with _$BreedState {
+  const factory BreedState.initial(List<Breed> breeds) = _Initial;
+  const factory BreedState.loading() = _Loading;
+  const factory BreedState.success(List<Breed> breeds) = _Success;
+  const factory BreedState.error(String errorMessage) = _Error;
 }
-
-// final class BreedInitial extends BreedState {}
