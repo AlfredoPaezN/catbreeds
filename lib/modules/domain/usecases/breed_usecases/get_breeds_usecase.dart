@@ -5,12 +5,12 @@ import 'package:catbreeds/modules/domain/repositories/breed_repository.dart';
 import 'package:dartz/dartz.dart';
 
 class GetBreedsUseCase implements UseCase<List<Breed>, NoParams> {
-  final BreedRepository breedRepository;
+  GetBreedsUseCase(this._breedRepository);
 
-  GetBreedsUseCase(this.breedRepository);
+  final BreedRepository _breedRepository;
 
   @override
   Future<Either<Failure, List<Breed>>> call(NoParams params) async {
-    return breedRepository.getBreeds();
+    return _breedRepository.getBreeds();
   }
 }

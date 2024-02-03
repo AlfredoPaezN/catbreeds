@@ -50,20 +50,20 @@ class _BreedsApi implements BreedsApi {
   }
 
   @override
-  Future<List<Breed>> getImageById() async {
+  Future<List<BreedImage>> getImagesByIds(String breedIds) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'breed_ids': breedIds};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Breed>>(Options(
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<BreedImage>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/images/search?breed_id={id}',
+              '/images/search?limit=100',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -73,7 +73,7 @@ class _BreedsApi implements BreedsApi {
               baseUrl,
             ))));
     var value = _result.data!
-        .map((dynamic i) => Breed.fromJson(i as Map<String, dynamic>))
+        .map((dynamic i) => BreedImage.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }
