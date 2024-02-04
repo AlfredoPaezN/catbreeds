@@ -87,4 +87,15 @@ class BreedCubit extends Cubit<BreedState> {
 
     return combinedBreeds.toList();
   }
+
+  void setSelectedBreed(Breed breed) {
+    emit(BreedState(breeds: state.breeds, selectedBreed: breed));
+  }
+
+  void filterBreeds(String value) {
+    final breedsFiltered = state.breeds
+        .where((bred) => bred.name.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    emit(BreedState(breeds: breedsFiltered));
+  }
 }
