@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:skeletonizer/skeletonizer.dart';
 
 class BreedDetail extends StatefulWidget {
   const BreedDetail({super.key});
@@ -21,6 +20,7 @@ class _BreedDetailState extends State<BreedDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           onPressed: () {
             context.pop();
@@ -55,7 +55,7 @@ class _BreedDetailState extends State<BreedDetail> {
               ),
               Expanded(
                 flex: 4,
-                child: Body(breed: state.selectedBreed!),
+                child: DetailBody(breed: state.selectedBreed!),
               ),
             ],
           );
@@ -108,8 +108,8 @@ List<Icon> generateCalificationAction(int calification) {
   return iconsList;
 }
 
-class Body extends StatelessWidget {
-  const Body({required this.breed, super.key});
+class DetailBody extends StatelessWidget {
+  const DetailBody({required this.breed, super.key});
 
   final Breed breed;
 
