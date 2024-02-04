@@ -1,13 +1,16 @@
 import 'package:catbreeds/core/utils/colors.dart';
+import 'package:catbreeds/core/utils/debouncer.dart';
 import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:catbreeds/modules/presentation/blocs/breed_cubit/breed_cubit.dart';
 import 'package:catbreeds/modules/presentation/widgets/search_bar.dart';
 import 'package:catbreeds/modules/presentation/widgets/staggered_dual.dart';
 import 'package:catbreeds/routes/routes_constants.dart';
+import 'package:circle_flags/circle_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,7 +22,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    final breedCubit = context.read<BreedCubit>();
     return Scaffold(
       backgroundColor: const Color(CatBreedsColors.backgroundColor),
       appBar: AppBar(
@@ -37,49 +39,95 @@ class _HomeState extends State<Home> {
       ),
 
       // body: BreedDetail(),
-      body: BlocBuilder<BreedCubit, BreedState>(builder: (context, state) {
-        return state.when<Widget>(
-          initial: (breeds, e, w) => const Text(''),
-          loading: (breeds, e, w) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          success: (breeds, e, w) {
-            return Column(
+      body: BlocBuilder<BreedCubit, BreedState>(
+        builder: (context, state) {
+          return state.when<Widget>(
+            initial: (breeds, selectedBreed, filteredBreeds) => const Text(''),
+            loading: (breeds, selectedBreed, filteredBreeds) => Column(
               children: [
-                Search(state: state),
+                const Search(),
+                // Skeletonizer(child: BreedList(filteredBreeds: filteredBreeds)),
                 Expanded(
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20.0, top: 0, right: 20.0),
-                    child: StaggeredDualView(
+                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Skeletonizer(
+                      child: StaggeredDualView(
                         spacing: 10,
                         aspectRatio: 0.7,
-                        itemCount: breeds.length,
-                        itemBuilder: (BuildContext, i) => GestureDetector(
-                              onTap: () {
-                                context.go(Routes.detail);
-                              },
-                              child: BreedCard(
-                                breed: breeds[i],
-                              ),
-                            )),
+                        itemCount: 6,
+                        itemBuilder: (context, i) => GestureDetector(
+                          onTap: () {
+                            context
+                                .read<BreedCubit>()
+                                .setSelectedBreed(filteredBreeds[i]);
+
+                            context.push(Routes.detail);
+                          },
+                          child: const BreedCard(
+                            breed: Breed(
+                              id: 'id',
+                              name: 'name',
+                              origin: 'origin',
+                              description: 'description',
+                              temperament: 'temperament',
+                              adaptability: 1,
+                              hypoallergenic: 1,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ],
-            );
-          },
-          error: (breeds, selectedBreed, searchText, errorMessage) =>
-              Text(errorMessage ?? ''),
-        );
-      }),
+            ),
+            success: (breeds, selectedBreed, filteredBreeds) {
+              return Column(
+                children: [
+                  const Search(),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: StaggeredDualView(
+                        spacing: 10,
+                        aspectRatio: 0.7,
+                        itemCount: filteredBreeds.length,
+                        itemBuilder: (context, i) => GestureDetector(
+                          onTap: () {
+                            context
+                                .read<BreedCubit>()
+                                .setSelectedBreed(filteredBreeds[i]);
+
+                            context.push(Routes.detail);
+                          },
+                          child: BreedCard(
+                            breed: filteredBreeds[i],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+            error: (breeds, selectedBreed, filteredBreeds, errorMessage) =>
+                Text(errorMessage ?? ''),
+          );
+        },
+      ),
     );
   }
 }
 
-class Search extends StatelessWidget {
-  const Search({super.key, required this.state});
+class Search extends StatefulWidget {
+  const Search({super.key});
 
-  final BreedState state;
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  final debouncer = Debouncer(milliseconds: 500);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +142,11 @@ class Search extends StatelessWidget {
       child: SizedBox(
         height: 50.h,
         child: BreedSearchBar(
-          onChanged: breedCubit.filterBreeds,
+          onChanged: (value) {
+            debouncer.run(() {
+              breedCubit.filterBreeds(value);
+            });
+          },
           hintText: 'Search by Breed',
           leftPadding: 10,
           topPadding: 10,
@@ -126,20 +178,63 @@ class BreedCard extends StatelessWidget {
           Expanded(
             flex: 7,
             child: Hero(
-              tag: breed.id,
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+              tag: 'image-${breed.referenceImageId}',
+              child: Stack(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      child: Image.network(
+                        'https://cdn2.thecatapi.com/images/${breed.referenceImageId}.jpg',
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/cat_placeholder.png',
+                            fit: BoxFit.cover,
+                            height: 300,
+                            width: double.infinity,
+                          );
+                        },
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                  child: breed.image?.url != null
-                      ? Image.network(
-                          breed.image!.url!,
-                          fit: BoxFit.cover,
-                        )
-                      : Container(),
-                ),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.5),
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Text(
+                            breed.origin,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 5.w),
+                          if (breed.countryCode == null)
+                            const SizedBox()
+                          else
+                            CircleFlag(
+                              breed.countryCode!,
+                              size: 15,
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

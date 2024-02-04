@@ -1,10 +1,13 @@
 import 'package:catbreeds/core/utils/colors.dart';
+import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:catbreeds/modules/presentation/blocs/breed_cubit/breed_cubit.dart';
 import 'package:catbreeds/modules/presentation/widgets/info_card.dart';
+import 'package:circle_flags/circle_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class BreedDetail extends StatefulWidget {
   const BreedDetail({super.key});
@@ -19,21 +22,25 @@ class _BreedDetailState extends State<BreedDetail> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-            onPressed: () {
-              context.pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Color(CatBreedsColors.primary),
-            )),
+          onPressed: () {
+            context.pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new_rounded,
+            color: Color(CatBreedsColors.primary),
+          ),
+        ),
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
-        title: const Text('BREED DETAIL',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(CatBreedsColors.primary))),
+        title: const Text(
+          'BREED DETAIL',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Color(CatBreedsColors.primary),
+          ),
+        ),
       ),
       backgroundColor: const Color(CatBreedsColors.backgroundColor),
       body: BlocBuilder<BreedCubit, BreedState>(
@@ -43,13 +50,12 @@ class _BreedDetailState extends State<BreedDetail> {
               Expanded(
                 flex: 3,
                 child: _DetailHeader(
-                  breedId: state.selectedBreed!.id,
-                  imageUrl: state.selectedBreed?.image?.url,
+                  breedReferenceId: state.selectedBreed?.referenceImageId ?? '',
                 ),
               ),
-              const Expanded(
+              Expanded(
                 flex: 4,
-                child: Body(),
+                child: Body(breed: state.selectedBreed!),
               ),
             ],
           );
@@ -67,8 +73,45 @@ TextStyle? boldTextStyle() {
   );
 }
 
+Color evaluateCalificationColor(int calification) {
+  switch (calification) {
+    case < 3:
+      return const Color(CatBreedsColors.red);
+    case < 5:
+      return const Color(CatBreedsColors.yellow);
+    case 5:
+      return const Color(CatBreedsColors.green);
+    default:
+      return const Color(CatBreedsColors.red);
+  }
+}
+
+List<Icon> generateCalificationAction(int calification) {
+  final iconsList = List<Icon>.generate(calification, (index) {
+    return Icon(
+      Icons.circle_rounded,
+      size: 20,
+      color: evaluateCalificationColor(calification),
+    );
+  });
+
+  iconsList.addAll(
+    List.generate(5 - calification, (index) {
+      return Icon(
+        Icons.circle_outlined,
+        size: 20,
+        color: evaluateCalificationColor(calification),
+      );
+    }),
+  );
+
+  return iconsList;
+}
+
 class Body extends StatelessWidget {
-  const Body({super.key});
+  const Body({required this.breed, super.key});
+
+  final Breed breed;
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +123,8 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             InfoCard(
-              description: const Text(
-                "Asset type",
+              description: Text(
+                breed.name,
               ),
               data: Text(
                 'Breed',
@@ -89,11 +132,26 @@ class Body extends StatelessWidget {
               ),
             ),
             InfoCard(
-              description: Text(
-                "Country Code",
+              description: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    breed.origin,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  if (breed.countryCode == null)
+                    const SizedBox()
+                  else
+                    CircleFlag(
+                      breed.countryCode!,
+                      size: 15,
+                    ),
+                ],
               ),
               data: Text(
-                "Country",
+                'Country',
                 style: boldTextStyle(),
               ),
             ),
@@ -104,10 +162,10 @@ class Body extends StatelessWidget {
         ),
         InfoCard(
           description: Text(
-            "Asset type",
+            breed.description!,
           ),
           data: Text(
-            "Description",
+            'Description',
             style: boldTextStyle(),
           ),
         ),
@@ -119,19 +177,25 @@ class Body extends StatelessWidget {
           children: [
             InfoCard(
               description: Text(
-                "Asset type",
+                '${breed.lifeSpan} years',
               ),
               data: Text(
-                "Life Span",
+                'Life Span',
                 style: boldTextStyle(),
               ),
             ),
             InfoCard(
-              description: Text(
-                "Asset type",
+              description: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (breed.intelligence == null)
+                    const Text('Unknown')
+                  else
+                    ...generateCalificationAction(breed.intelligence!),
+                ],
               ),
               data: Text(
-                "intelligence",
+                'Intelligence',
                 style: boldTextStyle(),
               ),
             ),
@@ -142,10 +206,10 @@ class Body extends StatelessWidget {
         ),
         InfoCard(
           description: Text(
-            "Asset type",
+            breed.temperament,
           ),
           data: Text(
-            "Temperament",
+            'Temperament',
             style: boldTextStyle(),
           ),
         ),
@@ -157,19 +221,25 @@ class Body extends StatelessWidget {
           children: [
             InfoCard(
               description: Text(
-                "Asset type",
+                '${breed.weight!.imperial} Kg',
               ),
               data: Text(
-                "Weight",
+                'Weight',
                 style: boldTextStyle(),
               ),
             ),
             InfoCard(
-              description: Text(
-                "Energy level",
+              description: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (breed.intelligence == null)
+                    const Text('Unknown')
+                  else
+                    ...generateCalificationAction(breed.energyLevel!),
+                ],
               ),
               data: Text(
-                "Energy level",
+                'Energy level',
                 style: boldTextStyle(),
               ),
             ),
@@ -185,11 +255,9 @@ class Body extends StatelessWidget {
 
 class _DetailHeader extends StatelessWidget {
   const _DetailHeader({
-    required this.breedId,
-    this.imageUrl,
+    required this.breedReferenceId,
   });
-  final String breedId;
-  final String? imageUrl;
+  final String breedReferenceId;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -198,16 +266,26 @@ class _DetailHeader extends StatelessWidget {
         child: AspectRatio(
           aspectRatio: 1,
           child: Hero(
-            tag: breedId,
-            child: CircleAvatar(
-              radius: 100,
-              backgroundImage: imageUrl != null
-                  ? Image.network(
-                      imageUrl!,
+            tag: 'image-$breedReferenceId',
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
+                child: Image.network(
+                  'https://cdn2.thecatapi.com/images/$breedReferenceId.jpg',
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/cat_placeholder.png',
                       fit: BoxFit.cover,
-                    ).image
-                  : const AssetImage('assets/icon/iconcatbgw.png'),
-              backgroundColor: Colors.white,
+                      height: 300,
+                      width: double.infinity,
+                    );
+                  },
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
         ),

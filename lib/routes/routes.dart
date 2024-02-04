@@ -30,7 +30,7 @@ class AppRouter {
       // )
     ],
     errorPageBuilder: (context, state) {
-      return MaterialPage(key: state.pageKey, child: Home());
+      return MaterialPage(key: state.pageKey, child: const Home());
     },
   );
   GoRouter get router => _router;

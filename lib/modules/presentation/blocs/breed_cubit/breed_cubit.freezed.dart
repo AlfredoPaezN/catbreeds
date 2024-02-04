@@ -18,52 +18,52 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$BreedState {
   List<Breed> get breeds => throw _privateConstructorUsedError;
   Breed? get selectedBreed => throw _privateConstructorUsedError;
-  String? get searchText => throw _privateConstructorUsedError;
+  List<Breed> get filteredBreeds => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         initial,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         loading,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         success,
     required TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)
+            List<Breed> filteredBreeds, String? errorMessage)
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult? Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
     required TResult orElse(),
   }) =>
@@ -105,7 +105,8 @@ abstract class $BreedStateCopyWith<$Res> {
           BreedState value, $Res Function(BreedState) then) =
       _$BreedStateCopyWithImpl<$Res, BreedState>;
   @useResult
-  $Res call({List<Breed> breeds, Breed? selectedBreed, String? searchText});
+  $Res call(
+      {List<Breed> breeds, Breed? selectedBreed, List<Breed> filteredBreeds});
 
   $BreedCopyWith<$Res>? get selectedBreed;
 }
@@ -125,7 +126,7 @@ class _$BreedStateCopyWithImpl<$Res, $Val extends BreedState>
   $Res call({
     Object? breeds = null,
     Object? selectedBreed = freezed,
-    Object? searchText = freezed,
+    Object? filteredBreeds = null,
   }) {
     return _then(_value.copyWith(
       breeds: null == breeds
@@ -136,10 +137,10 @@ class _$BreedStateCopyWithImpl<$Res, $Val extends BreedState>
           ? _value.selectedBreed
           : selectedBreed // ignore: cast_nullable_to_non_nullable
               as Breed?,
-      searchText: freezed == searchText
-          ? _value.searchText
-          : searchText // ignore: cast_nullable_to_non_nullable
-              as String?,
+      filteredBreeds: null == filteredBreeds
+          ? _value.filteredBreeds
+          : filteredBreeds // ignore: cast_nullable_to_non_nullable
+              as List<Breed>,
     ) as $Val);
   }
 
@@ -164,7 +165,8 @@ abstract class _$$InitialImplCopyWith<$Res>
       __$$InitialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Breed> breeds, Breed? selectedBreed, String? searchText});
+  $Res call(
+      {List<Breed> breeds, Breed? selectedBreed, List<Breed> filteredBreeds});
 
   @override
   $BreedCopyWith<$Res>? get selectedBreed;
@@ -183,7 +185,7 @@ class __$$InitialImplCopyWithImpl<$Res>
   $Res call({
     Object? breeds = null,
     Object? selectedBreed = freezed,
-    Object? searchText = freezed,
+    Object? filteredBreeds = null,
   }) {
     return _then(_$InitialImpl(
       breeds: null == breeds
@@ -194,10 +196,10 @@ class __$$InitialImplCopyWithImpl<$Res>
           ? _value.selectedBreed
           : selectedBreed // ignore: cast_nullable_to_non_nullable
               as Breed?,
-      searchText: freezed == searchText
-          ? _value.searchText
-          : searchText // ignore: cast_nullable_to_non_nullable
-              as String?,
+      filteredBreeds: null == filteredBreeds
+          ? _value._filteredBreeds
+          : filteredBreeds // ignore: cast_nullable_to_non_nullable
+              as List<Breed>,
     ));
   }
 }
@@ -208,8 +210,9 @@ class _$InitialImpl implements _Initial {
   const _$InitialImpl(
       {final List<Breed> breeds = const [],
       this.selectedBreed,
-      this.searchText})
-      : _breeds = breeds;
+      final List<Breed> filteredBreeds = const []})
+      : _breeds = breeds,
+        _filteredBreeds = filteredBreeds;
 
   final List<Breed> _breeds;
   @override
@@ -222,12 +225,18 @@ class _$InitialImpl implements _Initial {
 
   @override
   final Breed? selectedBreed;
+  final List<Breed> _filteredBreeds;
   @override
-  final String? searchText;
+  @JsonKey()
+  List<Breed> get filteredBreeds {
+    if (_filteredBreeds is EqualUnmodifiableListView) return _filteredBreeds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filteredBreeds);
+  }
 
   @override
   String toString() {
-    return 'BreedState.initial(breeds: $breeds, selectedBreed: $selectedBreed, searchText: $searchText)';
+    return 'BreedState.initial(breeds: $breeds, selectedBreed: $selectedBreed, filteredBreeds: $filteredBreeds)';
   }
 
   @override
@@ -238,13 +247,16 @@ class _$InitialImpl implements _Initial {
             const DeepCollectionEquality().equals(other._breeds, _breeds) &&
             (identical(other.selectedBreed, selectedBreed) ||
                 other.selectedBreed == selectedBreed) &&
-            (identical(other.searchText, searchText) ||
-                other.searchText == searchText));
+            const DeepCollectionEquality()
+                .equals(other._filteredBreeds, _filteredBreeds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_breeds), selectedBreed, searchText);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_breeds),
+      selectedBreed,
+      const DeepCollectionEquality().hash(_filteredBreeds));
 
   @JsonKey(ignore: true)
   @override
@@ -255,60 +267,60 @@ class _$InitialImpl implements _Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         initial,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         loading,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         success,
     required TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)
+            List<Breed> filteredBreeds, String? errorMessage)
         error,
   }) {
-    return initial(breeds, selectedBreed, searchText);
+    return initial(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult? Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
   }) {
-    return initial?.call(breeds, selectedBreed, searchText);
+    return initial?.call(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
     required TResult orElse(),
   }) {
     if (initial != null) {
-      return initial(breeds, selectedBreed, searchText);
+      return initial(breeds, selectedBreed, filteredBreeds);
     }
     return orElse();
   }
@@ -355,14 +367,14 @@ abstract class _Initial implements BreedState {
   const factory _Initial(
       {final List<Breed> breeds,
       final Breed? selectedBreed,
-      final String? searchText}) = _$InitialImpl;
+      final List<Breed> filteredBreeds}) = _$InitialImpl;
 
   @override
   List<Breed> get breeds;
   @override
   Breed? get selectedBreed;
   @override
-  String? get searchText;
+  List<Breed> get filteredBreeds;
   @override
   @JsonKey(ignore: true)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
@@ -377,7 +389,8 @@ abstract class _$$LoadingImplCopyWith<$Res>
       __$$LoadingImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Breed> breeds, Breed? selectedBreed, String? searchText});
+  $Res call(
+      {List<Breed> breeds, Breed? selectedBreed, List<Breed> filteredBreeds});
 
   @override
   $BreedCopyWith<$Res>? get selectedBreed;
@@ -396,7 +409,7 @@ class __$$LoadingImplCopyWithImpl<$Res>
   $Res call({
     Object? breeds = null,
     Object? selectedBreed = freezed,
-    Object? searchText = freezed,
+    Object? filteredBreeds = null,
   }) {
     return _then(_$LoadingImpl(
       breeds: null == breeds
@@ -407,10 +420,10 @@ class __$$LoadingImplCopyWithImpl<$Res>
           ? _value.selectedBreed
           : selectedBreed // ignore: cast_nullable_to_non_nullable
               as Breed?,
-      searchText: freezed == searchText
-          ? _value.searchText
-          : searchText // ignore: cast_nullable_to_non_nullable
-              as String?,
+      filteredBreeds: null == filteredBreeds
+          ? _value._filteredBreeds
+          : filteredBreeds // ignore: cast_nullable_to_non_nullable
+              as List<Breed>,
     ));
   }
 }
@@ -421,8 +434,9 @@ class _$LoadingImpl implements _Loading {
   const _$LoadingImpl(
       {final List<Breed> breeds = const [],
       this.selectedBreed,
-      this.searchText})
-      : _breeds = breeds;
+      final List<Breed> filteredBreeds = const []})
+      : _breeds = breeds,
+        _filteredBreeds = filteredBreeds;
 
   final List<Breed> _breeds;
   @override
@@ -435,12 +449,18 @@ class _$LoadingImpl implements _Loading {
 
   @override
   final Breed? selectedBreed;
+  final List<Breed> _filteredBreeds;
   @override
-  final String? searchText;
+  @JsonKey()
+  List<Breed> get filteredBreeds {
+    if (_filteredBreeds is EqualUnmodifiableListView) return _filteredBreeds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filteredBreeds);
+  }
 
   @override
   String toString() {
-    return 'BreedState.loading(breeds: $breeds, selectedBreed: $selectedBreed, searchText: $searchText)';
+    return 'BreedState.loading(breeds: $breeds, selectedBreed: $selectedBreed, filteredBreeds: $filteredBreeds)';
   }
 
   @override
@@ -451,13 +471,16 @@ class _$LoadingImpl implements _Loading {
             const DeepCollectionEquality().equals(other._breeds, _breeds) &&
             (identical(other.selectedBreed, selectedBreed) ||
                 other.selectedBreed == selectedBreed) &&
-            (identical(other.searchText, searchText) ||
-                other.searchText == searchText));
+            const DeepCollectionEquality()
+                .equals(other._filteredBreeds, _filteredBreeds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_breeds), selectedBreed, searchText);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_breeds),
+      selectedBreed,
+      const DeepCollectionEquality().hash(_filteredBreeds));
 
   @JsonKey(ignore: true)
   @override
@@ -468,60 +491,60 @@ class _$LoadingImpl implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         initial,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         loading,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         success,
     required TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)
+            List<Breed> filteredBreeds, String? errorMessage)
         error,
   }) {
-    return loading(breeds, selectedBreed, searchText);
+    return loading(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult? Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
   }) {
-    return loading?.call(breeds, selectedBreed, searchText);
+    return loading?.call(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(breeds, selectedBreed, searchText);
+      return loading(breeds, selectedBreed, filteredBreeds);
     }
     return orElse();
   }
@@ -568,14 +591,14 @@ abstract class _Loading implements BreedState {
   const factory _Loading(
       {final List<Breed> breeds,
       final Breed? selectedBreed,
-      final String? searchText}) = _$LoadingImpl;
+      final List<Breed> filteredBreeds}) = _$LoadingImpl;
 
   @override
   List<Breed> get breeds;
   @override
   Breed? get selectedBreed;
   @override
-  String? get searchText;
+  List<Breed> get filteredBreeds;
   @override
   @JsonKey(ignore: true)
   _$$LoadingImplCopyWith<_$LoadingImpl> get copyWith =>
@@ -590,7 +613,8 @@ abstract class _$$SuccessImplCopyWith<$Res>
       __$$SuccessImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Breed> breeds, Breed? selectedBreed, String? searchText});
+  $Res call(
+      {List<Breed> breeds, Breed? selectedBreed, List<Breed> filteredBreeds});
 
   @override
   $BreedCopyWith<$Res>? get selectedBreed;
@@ -609,7 +633,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
   $Res call({
     Object? breeds = null,
     Object? selectedBreed = freezed,
-    Object? searchText = freezed,
+    Object? filteredBreeds = null,
   }) {
     return _then(_$SuccessImpl(
       breeds: null == breeds
@@ -620,10 +644,10 @@ class __$$SuccessImplCopyWithImpl<$Res>
           ? _value.selectedBreed
           : selectedBreed // ignore: cast_nullable_to_non_nullable
               as Breed?,
-      searchText: freezed == searchText
-          ? _value.searchText
-          : searchText // ignore: cast_nullable_to_non_nullable
-              as String?,
+      filteredBreeds: null == filteredBreeds
+          ? _value._filteredBreeds
+          : filteredBreeds // ignore: cast_nullable_to_non_nullable
+              as List<Breed>,
     ));
   }
 }
@@ -634,8 +658,9 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl(
       {final List<Breed> breeds = const [],
       this.selectedBreed,
-      this.searchText})
-      : _breeds = breeds;
+      final List<Breed> filteredBreeds = const []})
+      : _breeds = breeds,
+        _filteredBreeds = filteredBreeds;
 
   final List<Breed> _breeds;
   @override
@@ -648,12 +673,18 @@ class _$SuccessImpl implements _Success {
 
   @override
   final Breed? selectedBreed;
+  final List<Breed> _filteredBreeds;
   @override
-  final String? searchText;
+  @JsonKey()
+  List<Breed> get filteredBreeds {
+    if (_filteredBreeds is EqualUnmodifiableListView) return _filteredBreeds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filteredBreeds);
+  }
 
   @override
   String toString() {
-    return 'BreedState.success(breeds: $breeds, selectedBreed: $selectedBreed, searchText: $searchText)';
+    return 'BreedState.success(breeds: $breeds, selectedBreed: $selectedBreed, filteredBreeds: $filteredBreeds)';
   }
 
   @override
@@ -664,13 +695,16 @@ class _$SuccessImpl implements _Success {
             const DeepCollectionEquality().equals(other._breeds, _breeds) &&
             (identical(other.selectedBreed, selectedBreed) ||
                 other.selectedBreed == selectedBreed) &&
-            (identical(other.searchText, searchText) ||
-                other.searchText == searchText));
+            const DeepCollectionEquality()
+                .equals(other._filteredBreeds, _filteredBreeds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_breeds), selectedBreed, searchText);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_breeds),
+      selectedBreed,
+      const DeepCollectionEquality().hash(_filteredBreeds));
 
   @JsonKey(ignore: true)
   @override
@@ -681,60 +715,60 @@ class _$SuccessImpl implements _Success {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         initial,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         loading,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         success,
     required TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)
+            List<Breed> filteredBreeds, String? errorMessage)
         error,
   }) {
-    return success(breeds, selectedBreed, searchText);
+    return success(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult? Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
   }) {
-    return success?.call(breeds, selectedBreed, searchText);
+    return success?.call(breeds, selectedBreed, filteredBreeds);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(breeds, selectedBreed, searchText);
+      return success(breeds, selectedBreed, filteredBreeds);
     }
     return orElse();
   }
@@ -781,14 +815,14 @@ abstract class _Success implements BreedState {
   const factory _Success(
       {final List<Breed> breeds,
       final Breed? selectedBreed,
-      final String? searchText}) = _$SuccessImpl;
+      final List<Breed> filteredBreeds}) = _$SuccessImpl;
 
   @override
   List<Breed> get breeds;
   @override
   Breed? get selectedBreed;
   @override
-  String? get searchText;
+  List<Breed> get filteredBreeds;
   @override
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
@@ -805,7 +839,7 @@ abstract class _$$ErrorImplCopyWith<$Res> implements $BreedStateCopyWith<$Res> {
   $Res call(
       {List<Breed> breeds,
       Breed? selectedBreed,
-      String? searchText,
+      List<Breed> filteredBreeds,
       String? errorMessage});
 
   @override
@@ -825,7 +859,7 @@ class __$$ErrorImplCopyWithImpl<$Res>
   $Res call({
     Object? breeds = null,
     Object? selectedBreed = freezed,
-    Object? searchText = freezed,
+    Object? filteredBreeds = null,
     Object? errorMessage = freezed,
   }) {
     return _then(_$ErrorImpl(
@@ -837,10 +871,10 @@ class __$$ErrorImplCopyWithImpl<$Res>
           ? _value.selectedBreed
           : selectedBreed // ignore: cast_nullable_to_non_nullable
               as Breed?,
-      searchText: freezed == searchText
-          ? _value.searchText
-          : searchText // ignore: cast_nullable_to_non_nullable
-              as String?,
+      filteredBreeds: null == filteredBreeds
+          ? _value._filteredBreeds
+          : filteredBreeds // ignore: cast_nullable_to_non_nullable
+              as List<Breed>,
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
@@ -855,9 +889,10 @@ class _$ErrorImpl implements _Error {
   const _$ErrorImpl(
       {final List<Breed> breeds = const [],
       this.selectedBreed,
-      this.searchText,
+      final List<Breed> filteredBreeds = const [],
       this.errorMessage})
-      : _breeds = breeds;
+      : _breeds = breeds,
+        _filteredBreeds = filteredBreeds;
 
   final List<Breed> _breeds;
   @override
@@ -870,14 +905,21 @@ class _$ErrorImpl implements _Error {
 
   @override
   final Breed? selectedBreed;
+  final List<Breed> _filteredBreeds;
   @override
-  final String? searchText;
+  @JsonKey()
+  List<Breed> get filteredBreeds {
+    if (_filteredBreeds is EqualUnmodifiableListView) return _filteredBreeds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_filteredBreeds);
+  }
+
   @override
   final String? errorMessage;
 
   @override
   String toString() {
-    return 'BreedState.error(breeds: $breeds, selectedBreed: $selectedBreed, searchText: $searchText, errorMessage: $errorMessage)';
+    return 'BreedState.error(breeds: $breeds, selectedBreed: $selectedBreed, filteredBreeds: $filteredBreeds, errorMessage: $errorMessage)';
   }
 
   @override
@@ -888,8 +930,8 @@ class _$ErrorImpl implements _Error {
             const DeepCollectionEquality().equals(other._breeds, _breeds) &&
             (identical(other.selectedBreed, selectedBreed) ||
                 other.selectedBreed == selectedBreed) &&
-            (identical(other.searchText, searchText) ||
-                other.searchText == searchText) &&
+            const DeepCollectionEquality()
+                .equals(other._filteredBreeds, _filteredBreeds) &&
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage));
   }
@@ -899,7 +941,7 @@ class _$ErrorImpl implements _Error {
       runtimeType,
       const DeepCollectionEquality().hash(_breeds),
       selectedBreed,
-      searchText,
+      const DeepCollectionEquality().hash(_filteredBreeds),
       errorMessage);
 
   @JsonKey(ignore: true)
@@ -911,60 +953,60 @@ class _$ErrorImpl implements _Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         initial,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         loading,
-    required TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)
+    required TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)
         success,
     required TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)
+            List<Breed> filteredBreeds, String? errorMessage)
         error,
   }) {
-    return error(breeds, selectedBreed, searchText, errorMessage);
+    return error(breeds, selectedBreed, filteredBreeds, errorMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult? Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult? Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult? Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
   }) {
-    return error?.call(breeds, selectedBreed, searchText, errorMessage);
+    return error?.call(breeds, selectedBreed, filteredBreeds, errorMessage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         initial,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         loading,
-    TResult Function(
-            List<Breed> breeds, Breed? selectedBreed, String? searchText)?
+    TResult Function(List<Breed> breeds, Breed? selectedBreed,
+            List<Breed> filteredBreeds)?
         success,
     TResult Function(List<Breed> breeds, Breed? selectedBreed,
-            String? searchText, String? errorMessage)?
+            List<Breed> filteredBreeds, String? errorMessage)?
         error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(breeds, selectedBreed, searchText, errorMessage);
+      return error(breeds, selectedBreed, filteredBreeds, errorMessage);
     }
     return orElse();
   }
@@ -1011,7 +1053,7 @@ abstract class _Error implements BreedState {
   const factory _Error(
       {final List<Breed> breeds,
       final Breed? selectedBreed,
-      final String? searchText,
+      final List<Breed> filteredBreeds,
       final String? errorMessage}) = _$ErrorImpl;
 
   @override
@@ -1019,7 +1061,7 @@ abstract class _Error implements BreedState {
   @override
   Breed? get selectedBreed;
   @override
-  String? get searchText;
+  List<Breed> get filteredBreeds;
   String? get errorMessage;
   @override
   @JsonKey(ignore: true)
