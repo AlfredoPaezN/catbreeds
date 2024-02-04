@@ -12,7 +12,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => locator<BreedCubit>()),
+        BlocProvider(create: (context) => locator<BreedCubit>()..getBreeds()),
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,

@@ -35,49 +35,43 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: IconButton(
-        onPressed: () async {
-          await breedCubit.getBreeds();
-          await breedCubit.getImagesByIds();
-        },
-        icon: const Icon(Icons.abc),
-      ),
+
       // body: BreedDetail(),
-      body: BlocBuilder<BreedCubit, BreedState>(
-        builder: (context, state) {
-          return state.breeds.isEmpty
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Column(
-                  children: [
-                    Search(state: state),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 20,
-                          right: 20,
-                        ),
-                        child: StaggeredDualView(
-                          spacing: 10,
-                          aspectRatio: 0.7,
-                          itemCount: state.breeds.length,
-                          itemBuilder: (context, i) => GestureDetector(
-                            onTap: () {
-                              breedCubit.setSelectedBreed(state.breeds[i]);
-                              context.push(Routes.detail);
-                            },
-                            child: BreedCard(
-                              breed: state.breeds[i],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-        },
-      ),
+      body: BlocBuilder<BreedCubit, BreedState>(builder: (context, state) {
+        return state.when<Widget>(
+          initial: (breeds, e, w) => const Text(''),
+          loading: (breeds, e, w) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          success: (breeds, e, w) {
+            return Column(
+              children: [
+                Search(state: state),
+                Expanded(
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20.0, top: 0, right: 20.0),
+                    child: StaggeredDualView(
+                        spacing: 10,
+                        aspectRatio: 0.7,
+                        itemCount: breeds.length,
+                        itemBuilder: (BuildContext, i) => GestureDetector(
+                              onTap: () {
+                                context.go(Routes.detail);
+                              },
+                              child: BreedCard(
+                                breed: breeds[i],
+                              ),
+                            )),
+                  ),
+                ),
+              ],
+            );
+          },
+          error: (breeds, selectedBreed, searchText, errorMessage) =>
+              Text(errorMessage ?? ''),
+        );
+      }),
     );
   }
 }
@@ -100,7 +94,6 @@ class Search extends StatelessWidget {
       child: SizedBox(
         height: 50.h,
         child: BreedSearchBar(
-          // controller: state.searchController,
           onChanged: breedCubit.filterBreeds,
           hintText: 'Search by Breed',
           leftPadding: 10,

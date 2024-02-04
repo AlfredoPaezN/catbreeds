@@ -4,6 +4,7 @@ import 'package:catbreeds/modules/data/models/breed_image_model.dart';
 import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:catbreeds/modules/domain/usecases/breed_usecases/get_breeds_usecase.dart';
 import 'package:catbreeds/modules/domain/usecases/breed_usecases/get_images_by_ids_usecase.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'breed_state.dart';
@@ -13,7 +14,7 @@ class BreedCubit extends Cubit<BreedState> {
   BreedCubit(
     this._getBreedsUseCase,
     this._getImagesByIdsUseCase,
-  ) : super(const BreedState.initial([]));
+  ) : super(const BreedState.initial());
 
   final GetBreedsUseCase _getBreedsUseCase;
   final GetImagesByIdsUseCase _getImagesByIdsUseCase;
@@ -24,62 +25,59 @@ class BreedCubit extends Cubit<BreedState> {
       final response = await _getBreedsUseCase.call(NoParams());
       response.fold(
         (failure) => {
-          emit(const BreedState.error('Error fetching breeds cats')),
+          emit(const BreedState.error(
+              errorMessage: 'Error fetching breeds cats')),
           print('${failure}')
         },
         (data) => {
-          emit(BreedState.success(data)),
+          emit(BreedState.success(breeds: data)),
         },
       );
     } catch (e, stackTrace) {
-      emit(const BreedState.error('Error fetching breeds cats'));
+      emit(const BreedState.error(errorMessage: 'Error fetching breeds cats'));
       print("ERROR CATCH ${e} ${stackTrace}");
     }
   }
 
   Future<void> getImagesByIds() async {
     emit(const BreedState.loading());
-    final breedIds = state
-        .maybeWhen(
-          initial: (e) => e.toList().map((e) => e.id),
-          orElse: () => <String>[],
-        )
-        .toList();
+    final breedIds = state.breeds.toList().map((e) => e.id).toList();
 
     try {
       final response = await _getImagesByIdsUseCase.call(breedIds);
 
       response.fold(
         (failure) => {
-          emit(const BreedState.error('Error fetching breed images')),
+          emit(BreedState.error(
+              breeds: state.breeds,
+              selectedBreed: state.selectedBreed,
+              searchText: state.searchText,
+              errorMessage: 'Error fetching breed images')),
           print(failure),
         },
         (data) => {
-          emit(BreedState.success(addBreedImages(data))),
+          emit(BreedState.success(breeds: addBreedImages(data))),
         },
       );
     } catch (e, stackTrace) {
-      emit(const BreedState.error('Error fetching breed images'));
+      emit(BreedState.error(
+          breeds: state.breeds,
+          selectedBreed: state.selectedBreed,
+          searchText: state.searchText,
+          errorMessage: 'Error fetching breed images'));
       print("ERROR CATCH ${e} ${stackTrace}");
     }
   }
 
   List<Breed> addBreedImages(List<BreedImage> images) {
     final breedImagesMap = <String?, BreedImage>{};
-    final breeds = state
-        .maybeWhen(
-          success: (e) => e.toList(),
-          orElse: () => <Breed>[],
-        )
-        .toList();
-
     images.map((image) {
       image.breedsInfo?.map((breedInfo) {
         breedImagesMap[breedInfo.id] = image;
       });
     });
 
-    final combinedBreeds = breeds.map(
+    final combinedBreeds = state.breeds.map(
       (e) {
         return e.copyWith(image: breedImagesMap[e.id]);
       },
@@ -89,13 +87,13 @@ class BreedCubit extends Cubit<BreedState> {
   }
 
   void setSelectedBreed(Breed breed) {
-    emit(BreedState(breeds: state.breeds, selectedBreed: breed));
+    emit(BreedState.success(breeds: state.breeds, selectedBreed: breed));
   }
 
   void filterBreeds(String value) {
     final breedsFiltered = state.breeds
         .where((bred) => bred.name.toLowerCase().contains(value.toLowerCase()))
         .toList();
-    emit(BreedState(breeds: breedsFiltered));
+    emit(BreedState.success(breeds: breedsFiltered));
   }
 }
