@@ -1,5 +1,5 @@
-import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:catbreeds/core/constants/constants.dart';
+import 'package:catbreeds/modules/data/models/breed_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

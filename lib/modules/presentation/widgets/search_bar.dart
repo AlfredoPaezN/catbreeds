@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:catbreeds/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,7 +47,7 @@ class BreedSearchBar extends StatelessWidget implements PreferredSizeWidget {
         keyboardType: TextInputType.text,
         style: TextStyle(
           fontSize: 14.sp,
-          color: const Color(CatBreedsColors.primary).withOpacity(.1),
+          color: const Color(CatBreedsColors.primary),
           overflow: TextOverflow.ellipsis,
         ),
         onChanged: onChanged,

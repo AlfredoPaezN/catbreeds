@@ -25,6 +25,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: const Color(CatBreedsColors.backgroundColor),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.transparent,
         surfaceTintColor: Colors.transparent,
         shadowColor: Colors.transparent,
@@ -46,7 +47,6 @@ class _HomeState extends State<Home> {
             loading: (breeds, selectedBreed, filteredBreeds) => Column(
               children: [
                 const Search(),
-                // Skeletonizer(child: BreedList(filteredBreeds: filteredBreeds)),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
