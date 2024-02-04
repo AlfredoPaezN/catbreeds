@@ -1,4 +1,3 @@
-import 'package:catbreeds/modules/data/models/breed_image_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'breed_model.freezed.dart';
@@ -15,7 +14,6 @@ class Breed with _$Breed {
     required int hypoallergenic,
     Weight? weight,
     String? cfaUrl,
-    BreedImage? image,
     String? vetstreetUrl,
     String? vcahospitalsUrl,
     String? countryCodes,

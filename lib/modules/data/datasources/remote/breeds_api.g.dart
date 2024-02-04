@@ -25,55 +25,29 @@ class _BreedsApi implements BreedsApi {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Breed>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
+    const Map<String, dynamic>? _data = null;
+    final _result = await _dio.fetch<List<dynamic>>(
+      _setStreamType<List<Breed>>(
+        Options(
+          method: 'GET',
+          headers: _headers,
+          extra: _extra,
+        )
             .compose(
               _dio.options,
               '/breeds',
               queryParameters: queryParameters,
-              data: _data,
             )
             .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
+              baseUrl: _combineBaseUrls(
+                _dio.options.baseUrl,
+                baseUrl,
+              ),
+            ),
+      ),
+    );
+    final value = _result.data!
         .map((dynamic i) => Breed.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<List<BreedImage>> getImagesByIds(String breedIds) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'breed_ids': breedIds};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<BreedImage>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/images/search?limit=100',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    var value = _result.data!
-        .map((dynamic i) => BreedImage.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

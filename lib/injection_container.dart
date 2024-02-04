@@ -4,7 +4,6 @@ import 'package:catbreeds/modules/data/datasources/remote/breeds_api.dart';
 import 'package:catbreeds/modules/data/repositories/breed_repository.dart';
 import 'package:catbreeds/modules/domain/repositories/breed_repository.dart';
 import 'package:catbreeds/modules/domain/usecases/breed_usecases/get_breeds_usecase.dart';
-import 'package:catbreeds/modules/domain/usecases/breed_usecases/get_images_by_ids_usecase.dart';
 import 'package:catbreeds/modules/presentation/blocs/breed_cubit/breed_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -31,10 +30,7 @@ Future<void> initLocator() async {
     ..registerLazySingleton<GetBreedsUseCase>(
       () => GetBreedsUseCase(locator()),
     )
-    ..registerLazySingleton<GetImagesByIdsUseCase>(
-      () => GetImagesByIdsUseCase(locator()),
-    )
 
 // Cubits
-    ..registerFactory(() => BreedCubit(locator(), locator()));
+    ..registerFactory(() => BreedCubit(locator()));
 }

@@ -28,7 +28,6 @@ mixin _$Breed {
   int get hypoallergenic => throw _privateConstructorUsedError;
   Weight? get weight => throw _privateConstructorUsedError;
   String? get cfaUrl => throw _privateConstructorUsedError;
-  BreedImage? get image => throw _privateConstructorUsedError;
   String? get vetstreetUrl => throw _privateConstructorUsedError;
   String? get vcahospitalsUrl => throw _privateConstructorUsedError;
   String? get countryCodes => throw _privateConstructorUsedError;
@@ -80,7 +79,6 @@ abstract class $BreedCopyWith<$Res> {
       int hypoallergenic,
       Weight? weight,
       String? cfaUrl,
-      BreedImage? image,
       String? vetstreetUrl,
       String? vcahospitalsUrl,
       String? countryCodes,
@@ -114,7 +112,6 @@ abstract class $BreedCopyWith<$Res> {
       int? bidability});
 
   $WeightCopyWith<$Res>? get weight;
-  $BreedImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -138,7 +135,6 @@ class _$BreedCopyWithImpl<$Res, $Val extends Breed>
     Object? hypoallergenic = null,
     Object? weight = freezed,
     Object? cfaUrl = freezed,
-    Object? image = freezed,
     Object? vetstreetUrl = freezed,
     Object? vcahospitalsUrl = freezed,
     Object? countryCodes = freezed,
@@ -204,10 +200,6 @@ class _$BreedCopyWithImpl<$Res, $Val extends Breed>
           ? _value.cfaUrl
           : cfaUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as BreedImage?,
       vetstreetUrl: freezed == vetstreetUrl
           ? _value.vetstreetUrl
           : vetstreetUrl // ignore: cast_nullable_to_non_nullable
@@ -346,18 +338,6 @@ class _$BreedCopyWithImpl<$Res, $Val extends Breed>
       return _then(_value.copyWith(weight: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $BreedImageCopyWith<$Res>? get image {
-    if (_value.image == null) {
-      return null;
-    }
-
-    return $BreedImageCopyWith<$Res>(_value.image!, (value) {
-      return _then(_value.copyWith(image: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -376,7 +356,6 @@ abstract class _$$BreedImplCopyWith<$Res> implements $BreedCopyWith<$Res> {
       int hypoallergenic,
       Weight? weight,
       String? cfaUrl,
-      BreedImage? image,
       String? vetstreetUrl,
       String? vcahospitalsUrl,
       String? countryCodes,
@@ -411,8 +390,6 @@ abstract class _$$BreedImplCopyWith<$Res> implements $BreedCopyWith<$Res> {
 
   @override
   $WeightCopyWith<$Res>? get weight;
-  @override
-  $BreedImageCopyWith<$Res>? get image;
 }
 
 /// @nodoc
@@ -434,7 +411,6 @@ class __$$BreedImplCopyWithImpl<$Res>
     Object? hypoallergenic = null,
     Object? weight = freezed,
     Object? cfaUrl = freezed,
-    Object? image = freezed,
     Object? vetstreetUrl = freezed,
     Object? vcahospitalsUrl = freezed,
     Object? countryCodes = freezed,
@@ -500,10 +476,6 @@ class __$$BreedImplCopyWithImpl<$Res>
           ? _value.cfaUrl
           : cfaUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      image: freezed == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as BreedImage?,
       vetstreetUrl: freezed == vetstreetUrl
           ? _value.vetstreetUrl
           : vetstreetUrl // ignore: cast_nullable_to_non_nullable
@@ -644,7 +616,6 @@ class _$BreedImpl implements _Breed {
       required this.hypoallergenic,
       this.weight,
       this.cfaUrl,
-      this.image,
       this.vetstreetUrl,
       this.vcahospitalsUrl,
       this.countryCodes,
@@ -696,8 +667,6 @@ class _$BreedImpl implements _Breed {
   final Weight? weight;
   @override
   final String? cfaUrl;
-  @override
-  final BreedImage? image;
   @override
   final String? vetstreetUrl;
   @override
@@ -763,7 +732,7 @@ class _$BreedImpl implements _Breed {
 
   @override
   String toString() {
-    return 'Breed(id: $id, name: $name, origin: $origin, temperament: $temperament, adaptability: $adaptability, hypoallergenic: $hypoallergenic, weight: $weight, cfaUrl: $cfaUrl, image: $image, vetstreetUrl: $vetstreetUrl, vcahospitalsUrl: $vcahospitalsUrl, countryCodes: $countryCodes, countryCode: $countryCode, description: $description, lifeSpan: $lifeSpan, indoor: $indoor, lap: $lap, altNames: $altNames, affectionLevel: $affectionLevel, childFriendly: $childFriendly, dogFriendly: $dogFriendly, energyLevel: $energyLevel, grooming: $grooming, healthIssues: $healthIssues, intelligence: $intelligence, sheddingLevel: $sheddingLevel, socialNeeds: $socialNeeds, strangerFriendly: $strangerFriendly, vocalisation: $vocalisation, experimental: $experimental, hairless: $hairless, natural: $natural, rare: $rare, rex: $rex, suppressedTail: $suppressedTail, shortLegs: $shortLegs, wikipediaUrl: $wikipediaUrl, referenceImageId: $referenceImageId, catFriendly: $catFriendly, bidability: $bidability)';
+    return 'Breed(id: $id, name: $name, origin: $origin, temperament: $temperament, adaptability: $adaptability, hypoallergenic: $hypoallergenic, weight: $weight, cfaUrl: $cfaUrl, vetstreetUrl: $vetstreetUrl, vcahospitalsUrl: $vcahospitalsUrl, countryCodes: $countryCodes, countryCode: $countryCode, description: $description, lifeSpan: $lifeSpan, indoor: $indoor, lap: $lap, altNames: $altNames, affectionLevel: $affectionLevel, childFriendly: $childFriendly, dogFriendly: $dogFriendly, energyLevel: $energyLevel, grooming: $grooming, healthIssues: $healthIssues, intelligence: $intelligence, sheddingLevel: $sheddingLevel, socialNeeds: $socialNeeds, strangerFriendly: $strangerFriendly, vocalisation: $vocalisation, experimental: $experimental, hairless: $hairless, natural: $natural, rare: $rare, rex: $rex, suppressedTail: $suppressedTail, shortLegs: $shortLegs, wikipediaUrl: $wikipediaUrl, referenceImageId: $referenceImageId, catFriendly: $catFriendly, bidability: $bidability)';
   }
 
   @override
@@ -782,7 +751,6 @@ class _$BreedImpl implements _Breed {
                 other.hypoallergenic == hypoallergenic) &&
             (identical(other.weight, weight) || other.weight == weight) &&
             (identical(other.cfaUrl, cfaUrl) || other.cfaUrl == cfaUrl) &&
-            (identical(other.image, image) || other.image == image) &&
             (identical(other.vetstreetUrl, vetstreetUrl) ||
                 other.vetstreetUrl == vetstreetUrl) &&
             (identical(other.vcahospitalsUrl, vcahospitalsUrl) ||
@@ -854,7 +822,6 @@ class _$BreedImpl implements _Breed {
         hypoallergenic,
         weight,
         cfaUrl,
-        image,
         vetstreetUrl,
         vcahospitalsUrl,
         countryCodes,
@@ -912,7 +879,6 @@ abstract class _Breed implements Breed {
       required final int hypoallergenic,
       final Weight? weight,
       final String? cfaUrl,
-      final BreedImage? image,
       final String? vetstreetUrl,
       final String? vcahospitalsUrl,
       final String? countryCodes,
@@ -963,8 +929,6 @@ abstract class _Breed implements Breed {
   Weight? get weight;
   @override
   String? get cfaUrl;
-  @override
-  BreedImage? get image;
   @override
   String? get vetstreetUrl;
   @override
