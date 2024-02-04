@@ -13,7 +13,7 @@
 
 ## Android 🤖
 <p float="left" >
-<img src="https://i.ibb.co/wJVmKcX/demo2.gif" alt="demo2" border="0" width="130" />
+<img src="https://i.postimg.cc/J7x4dq5S/android.gif" alt="demo2" border="0" width="130" />
 <img src="https://i.ibb.co/qpT1rfW/Screenshot-1707025585.png" alt="Screenshot-1707025585" border="0" width="130" />
 <img src="https://i.ibb.co/dPG4mvS/Screenshot-1707025601.png" alt="Screenshot-1707025601" border="0" width="130" />
 	
@@ -51,10 +51,38 @@ $ flutter run --flavor production --target lib/main_production.dart
 _\*Catbreeds works on iOS, Android, Web, and Windows._
 
 ---
+## Architecture 🏗️
+<p float="left" >
+
+
+<img src="https://i.ibb.co/rmTB5Lk/Whats-App-Image-2024-02-04-at-02-19-10.jpg" alt="Screenshot-1707025601" border="0"  height="700"  width="350" />
+
+1. *bootstrap.dart:*
+   - Inicialización de la aplicación.
+
+2. *core:*
+   - Constantes, Errores, HTTP.
+
+3. *injection_container.dart:*
+   - Contenedor de Inyección de Dependencias.
+
+4. *l10n:*
+   - Internacionalización, Traducciones.
+
+5. *main_development.dart, main_production.dart, main_staging.dart:*
+   - Puntos de entrada de configuración.
+
+6. *modules:*
+   - Datos, Dominio, Presentación.
+
+7. *routes:*
+   - Definición de Rutas.
+
+</p>
 
 ## Running Tests 🧪
-<img src="https://s13.gifyu.com/images/SCQqz.gif" alt="demo2" border="0" />
 
+<img src="https://s13.gifyu.com/images/SCQqz.gif" alt="demo2" border="0"/>
 To run all unit and widget tests use the following command:
 
 ```sh
@@ -73,114 +101,6 @@ $ open coverage/index.html
 
 ---
 
-## Working with Translations 🌐
-
-This project relies on [flutter_localizations][flutter_localizations_link] and follows the [official internationalization guide for Flutter][internationalization_link].
-
-### Adding Strings
-
-1. To add a new localizable string, open the `app_en.arb` file at `lib/l10n/arb/app_en.arb`.
-
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
-}
-```
-
-2. Then add a new key/value and description
-
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    },
-    "helloWorld": "Hello World",
-    "@helloWorld": {
-        "description": "Hello World Text"
-    }
-}
-```
-
-3. Use the new string
-
-```dart
-import 'package:catbreeds/l10n/l10n.dart';
-
-@override
-Widget build(BuildContext context) {
-  final l10n = context.l10n;
-  return Text(l10n.helloWorld);
-}
-```
-
-### Adding Supported Locales
-
-Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info.plist` to include the new locale.
-
-```xml
-    ...
-
-    <key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>es</string>
-	</array>
-
-    ...
-```
-
-### Adding Translations
-
-1. For each supported locale, add a new ARB file in `lib/l10n/arb`.
-
-```
-├── l10n
-│   ├── arb
-│   │   ├── app_en.arb
-│   │   └── app_es.arb
-```
-
-2. Add the translated strings to each `.arb` file:
-
-`app_en.arb`
-
-```arb
-{
-    "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    }
-}
-```
-
-`app_es.arb`
-
-```arb
-{
-    "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    }
-}
-```
-
-### Generating Translations
-
-To use the latest translations changes, you will need to generate them:
-
-1. Generate localizations for the current project:
-
-```sh
-flutter gen-l10n --arb-dir="lib/l10n/arb"
-```
 
 Alternatively, run `flutter run` and code generation will take place automatically.
 
