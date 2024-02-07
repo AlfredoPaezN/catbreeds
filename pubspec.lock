@@ -173,10 +173,10 @@ packages:
     dependency: "direct main"
     description:
       name: circle_flags
-      sha256: bf798dd8a651ee4301e35b85d8227b1171ee5d59cf1c1d003d5a9b5cfb256611
+      sha256: "028d5ca1bb12b9a4b29dc1a25f32a428ffd69e91343274375d9e574855af2daa"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.2"
   cli_util:
     dependency: transitive
     description:
